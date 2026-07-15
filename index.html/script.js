@@ -1,5 +1,9 @@
-fetch("https://script.google.com/macros/s/AKfycbxOkjZTH8G4gZI6kJWJqpDKYFhu4ySfIup_UKdIfWLQGlGf4TjzEWkFFjzmsLK1Vl6t/exec", {
+fetch("https://script.google.com/macros/s/AKfycby7HdRQfoaaTKHkV6HrTl91W5RqmhLxD1WqOxGFsnVn7CYUMAiEA-KUMUxJI-ZsVZY/exec", {
   method: "POST",
+  mode: "no-cors",
+  headers: {
+    "Content-Type": "text/plain;charset=utf-8"
+  },
   body: JSON.stringify({
     time: new Date().toLocaleString(),
     browser: navigator.userAgent,
@@ -7,7 +11,7 @@ fetch("https://script.google.com/macros/s/AKfycbxOkjZTH8G4gZI6kJWJqpDKYFhu4ySfIu
     referrer: document.referrer || "Direct",
     page: window.location.href
   })
-}).catch(console.error);
+});
 /* ==================== BIRTHDAY SURPRISE SITE - SCRIPT.JS ==================== */
 /* Handles all interactivity, animations, and user interactions */
 
