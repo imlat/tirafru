@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Birthday, Muslima Nahar Tira</title>
+  <meta name="description" content="A soft pastel birthday surprise site." />
+  <style>
+    /* Color palette and base styles */
+    :root{
+      --pink:#ffd6e8;
+      --lav:#e6e0ff;
+      --mid:#0b1630;
+      --mint:#e8fff7;
+      --glass: rgba(255,255,255,0.08);
+      --glass-2: rgba(255,255,255,0.12);
+      --accent: #ff8fb1;
+      --accent-2: #b99bff;
+      --soft-shadow: 0 8px 30px rgba(11,22,48,0.25);
+      --radius: 16px;
+      scroll-behavior: smooth;
+    }
+
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(185,120,220,0.12), transparent 10%),
+                  linear-gradient(180deg, #0b1630 0%, #0f2346 60%, #ffffff 100%);
+      color:#0b1630;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    /* Loading overlay */
+    .loading{
+      position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:9999;
+      background:linear-gradient(180deg, rgba(11,22,48,0.6), rgba(11,22,48,0.85));
+      backdrop-filter: blur(6px);
+      color:var(--pink);
+      flex-direction:column;
+    }
+    .spinner{width:70px;height:70px;border-radius:50%;position:relative;box-shadow:0 0 30px rgba(255,140,177,0.25) inset;
+      display:grid;place-items:center;}
+    .spinner:before{content:"";width:48px;height:48px;border-radius:50%;border:4px solid rgba(255,255,255,0.06);border-top-color:var(--accent);animation:spin 1.6s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* App container */
+    .app{
+      max-width:1100px;margin:0 auto;padding:36px;position:relative;z-index:2;
+    }
+
+    header{
+      display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;
+    }
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo .mark{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 6px 18px rgba(185,120,220,0.18),0 0 30px rgba(255,140,177,0.06)}
+    h1.site-title{font-size:18px;color:var(--lav);letter-spacing:0.4px}
+
+    /* Welcome overlay with typing */
+    .welcome-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(255,246,250,0.15),rgba(240,240,255,0.05));backdrop-filter:blur(8px);z-index:999;}
+    .welcome-card{width:min(820px,92%);background:linear-gradient(180deg,rgba(255,255,255,0.06), rgba(255,255,255,0.02));border-radius:20px;padding:28px;box-shadow:var(--soft-shadow);display:flex;gap:20px;align-items:center}
+    .welcome-left{flex:1}
+    .welcome-right{width:220px;text-align:center}
+    .typing{font-weight:600;font-size:20px;line-height:1.3;color:#fff;text-shadow:0 6px 30px rgba(185,120,220,0.12)}
+    /* typing cursor */
+    .typing::after{content:"";display:inline-block;width:10px;height:18px;margin-left:6px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0.2));border-radius:2px;animation:blink 1s steps(2, start) infinite}
+    @keyframes blink{50%{opacity:0}} 
+    .name-input{margin-top:12px;display:flex;gap:8px}
+    input[name="guestName"]{flex:1;padding:10px 12px;border-radius:12px;border:none;background:rgba(255,255,255,0.06);color:#fff;outline:none}
+    button.open-btn{padding:10px 14px;border-radius:12px;border:none;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#111;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(185,120,220,0.18)}
+
+    /* Hero / Birthday section */
+    .hero{margin-top:12vh;display:flex;flex-direction:column;align-items:center;gap:18px;padding:48px 20px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));backdrop-filter:blur(6px)}
+    .hero .title{font-size:48px;font-weight:800;color:var(--pink);text-transform:none;letter-spacing:1px}
+    .glow{color:#fff;text-shadow:0 8px 36px rgba(255,140,177,0.28),0 0 14px rgba(185,120,220,0.2);}
+
+    /* Floating particles canvas layer */
+    #particles{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:1}
+
+    /* Lightbox for gallery */
+    .lightbox{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(11,22,48,0.75);backdrop-filter:blur(6px);z-index:1200;opacity:0;pointer-events:none;transition:opacity .25s}
+    .lightbox.show{opacity:1;pointer-events:auto}
+    .lightbox img{max-width:90%;max-height:80%;border-radius:12px;box-shadow:0 18px 60px rgba(11,22,48,0.5)}
+    .lightbox .meta{color:#fff;margin-top:12px;text-align:center;font-size:14px}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:36px 0}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));border-radius:16px;padding:14px;backdrop-filter:blur(6px);box-shadow:var(--soft-shadow);transition:transform .4s cubic-bezier(.2,.9,.3,1), box-shadow .3s}
+    .card img{width:100%;height:180px;object-fit:cover;border-radius:12px;display:block;transition:transform .45s ease}
+    .card:hover{transform:translateY(-10px);box-shadow:0 18px 40px rgba(11,22,48,0.28)}
+    .card:hover img{transform:scale(1.06)}
+    .caption{margin-top:8px;font-size:14px;color:rgba(11,22,48,0.8)}
+
+    /* Personal message */
+    .letter{margin:28px 0;padding:22px;border-radius:14px;background:linear-gradient(135deg,rgba(255,255,255,0.04),rgba(255,255,255,0.02));box-shadow:var(--soft-shadow);opacity:0;transform:translateY(14px);transition:opacity .9s ease, transform .9s ease}
+    .letter.visible{opacity:1;transform:none}
+    .letter p{font-size:18px;line-height:1.6;color:#071427}
+
+    /* Music controls */
+    .music{display:flex;align-items:center;gap:12px}
+    .music button{padding:10px;border-radius:12px;border:none;background:linear-gradient(90deg,var(--lav),#fff);cursor:pointer;box-shadow:0 6px 16px rgba(11,22,48,0.12)}
+
+    /* Surprise modal */
+    .surprise{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(11,22,48,0.6),rgba(11,22,48,0.9));z-index:1000;backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .4s}
+    .surprise.show{opacity:1;pointer-events:auto}
+    .surprise-card{width:min(880px,94%);padding:32px;border-radius:20px;background:linear-gradient(180deg,#fff, #fff);text-align:center}
+    .final-msg{font-size:28px;color:var(--mid);line-height:1.3}
+    .final-msg.animate{transform:translateY(0) scale(1);opacity:1}
+    .final-msg{transform:translateY(8px) scale(.98);opacity:0;transition:all .7s cubic-bezier(.2,.9,.3,1)}
+
+    /* Footer */
+    footer{margin:42px 0 18px;text-align:center;color:rgba(11,22,48,0.6)}
+
+    /* Responsive tweaks */
+    @media (max-width:720px){
+      .welcome-card{flex-direction:column;padding:18px}
+      .hero .title{font-size:34px}
+      .card img{height:140px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading overlay -->
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div style="margin-top:12px;color:#fff;font-weight:600">Preparing something sweet...</div>
+  </div>
+
+  <!-- Canvas for particles and petals -->
+  <canvas id="particles"></canvas>
+
+  <!-- Welcome overlay that asks for the friend's name and types the intro -->
+  <div class="welcome-overlay" id="welcome">
+    <div class="welcome-card" role="dialog" aria-modal="true">
+      <div class="welcome-left">
+        <div class="typing" id="welcomeText">Hey <span id="guestPlaceholder">Muslima Nahar Tira</span>, this is something special just for you :)</div>
+        <div class="name-input">
+          <input name="guestName" id="guestName" value="Muslima Nahar Tira" placeholder="Type her name (optional)" maxlength="30" />
+          <button class="open-btn" id="openBtn">Open</button>
+        </div>
+        <div style="margin-top:12px;color:rgba(255,255,255,0.7);font-size:13px">Tip: Type her name to personalize the message.</div>
+      </div>
+      <div class="welcome-right">
+        <div style="font-weight:700;color:#fff;font-size:14px;margin-bottom:8px">Made just for her</div>
+        <div style="width:140px;height:140px;border-radius:16px;background:linear-gradient(135deg,var(--pink),var(--lav));box-shadow:0 10px 30px rgba(185,120,220,0.14)"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="app">
+    <header>
+      <div class="logo"><div class="mark"></div><div><div class="site-title">A Little Surprise</div><div style="font-size:12px;color:rgba(255,255,255,0.7)">Soft pastel, made with care</div></div></div>
+      <nav style="display:flex;gap:12px;align-items:center">
+        <div class="music">
+          <button id="playPause" aria-label="Play background music" aria-pressed="false">Play ♫</button>
+        </div>
+        <button id="surpriseBtn" aria-haspopup="dialog" style="padding:10px 14px;border-radius:12px;border:none;background:transparent;color:#fff;">Click for one last surprise</button>
+      </nav>
+    </header>
+
+    <!-- Birthday hero -->
+    <section class="hero" id="birthday">
+      <div class="title glow">Happy Birthday 🎂</div>
+      <div style="max-width:760px;text-align:center;color:rgba(11,22,48,0.8);">Floating hearts, little stars, and gentle particles to celebrate you — enjoy these memories and this small surprise.</div>
+    </section>
+
+    <!-- Memory gallery -->
+    <section>
+      <h2 style="margin-top:28px;color:#fff">Memory Gallery</h2>
+      <div class="gallery" id="gallery">
+        <!-- Placeholder images from picsum; replace with your own photos by editing src -->
+        <div class="card"><img src="https://picsum.photos/seed/1/800/600" alt="memory1"><div class="caption">That day we laughed so hard</div></div>
+        <div class="card"><img src="https://picsum.photos/seed/2/800/600" alt="memory2"><div class="caption">Adventure vibes</div></div>
+        <div class="card"><img src="https://picsum.photos/seed/3/800/600" alt="memory3"><div class="caption">Quiet coffee mornings</div></div>
+        <div class="card"><img src="https://picsum.photos/seed/4/800/600" alt="memory4"><div class="caption">Late-night talks</div></div>
+      </div>
+    </section>
+
+    <!-- Personal message -->
+    <section>
+      <h2 style="color:#fff">A Letter</h2>
+      <div class="letter" id="letter">
+        <p>Dear friend,</p>
+        <p>On this special day I want you to know how much light you bring into the world. Your kindness, your smiles, and the quiet strength you carry make every memory brighter. Thank you for being you.</p>
+        <p>May this year bring you gentle days, warm cups of tea, and countless reasons to smile. Happy Birthday — with all my love.</p>
+        <p>— Someone who adores you</p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      Made with care for someone truly special 💫
+    </footer>
+  </div>
+
+  <!-- Surprise modal content -->
+  <div class="surprise" id="surprise">
+    <div class="surprise-card">
+      <div class="final-msg" id="finalMsg">Surprise! You are loved more than words can say. 🌸</div>
+      <div style="margin-top:18px"><button id="closeSurprise" style="padding:10px 14px;border-radius:12px;border:none;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#111;">Close</button></div>
+    </div>
+  </div>
+
+  <!-- Lightbox for viewing gallery images -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo preview">
+    <div style="text-align:center">
+      <img id="lightboxImg" src="" alt="Preview">
+      <div class="meta" id="lightboxMeta"></div>
+      <div style="margin-top:12px"><button id="closeLightbox" style="padding:8px 12px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent),var(--accent-2));">Close</button></div>
+    </div>
+  </div>
+
+  <script>
+    /* ----------------------------- Utilities ----------------------------- */
+    const qs = s => document.querySelector(s);
+
+    /* ----------------------------- Loading ------------------------------ */
+    window.addEventListener('load', ()=>{
+      setTimeout(()=>{qs('#loading').style.display='none'},900);
+    });
+
+    /* --------------------------- Welcome / Typing ------------------------ */
+    // Elements for welcome overlay and personalization
+    const welcome = qs('#welcome');
+    const guestPlaceholder = qs('#guestPlaceholder');
+    const guestNameInput = qs('#guestName');
+    const openBtn = qs('#openBtn');
+
+    // Typing text effect for the welcome message
+    function typeText(el, text, speed=28){
+      el.textContent = '';
+      let i=0;
+      const id = setInterval(()=>{
+        el.textContent += text[i++]||'';
+        if(i>text.length) clearInterval(id);
+      }, speed);
+    }
+
+    // When the user clicks Open, personalize and close overlay
+    openBtn.addEventListener('click', ()=>{
+      const name = guestNameInput.value.trim() || '[Her Name]';
+      guestPlaceholder.textContent = name;
+      // type the full message
+      const text = `Hey ${name}, this is something special just for you :)`;
+      const el = qs('#welcomeText');
+      typeText(el, text, 26);
+      // close after typing completes
+      setTimeout(()=>{welcome.style.display='none'}, 1600 + text.length*26);
+    });
+
+    // Allow clicking outside the card to close after typing
+    welcome.addEventListener('click', (e)=>{ if(e.target===welcome) { openBtn.click(); } });
+
+    /* --------------------------- Particle Canvas ------------------------ */
+    const canvas = qs('#particles');
+    const ctx = canvas.getContext('2d');
+    let W = canvas.width = innerWidth;
+    let H = canvas.height = innerHeight;
+
+    window.addEventListener('resize', ()=>{W=canvas.width=innerWidth;H=canvas.height=innerHeight});
+
+    // Particle arrays
+    const particles = [];
+
+    // helper to random
+    const rand = (min,max)=>Math.random()*(max-min)+min;
+
+    // Create floating hearts, stars and sakura petals
+    class Particle{
+      constructor(x,y, vx,vy, size, type){this.x=x;this.y=y;this.vx=vx;this.vy=vy;this.size=size;this.life=rand(140,360);this.age=0;this.type=type}
+      step(){this.x+=this.vx;this.y+=this.vy;this.vy+=0.002;this.age++;}
+      draw(ctx){ctx.save();ctx.translate(this.x,this.y); if(this.type==='heart'){ctx.fillStyle='rgba(255,120,160,0.92)';drawHeart(ctx,0,0,this.size);} else if(this.type==='star'){ctx.fillStyle='rgba(255,255,255,0.9)';drawStar(ctx,0,0,this.size);} else {ctx.fillStyle='rgba(255,220,240,0.95)';drawPetal(ctx,0,0,this.size);} ctx.restore();}
+    }
+
+    // Simple heart drawing
+    function drawHeart(ctx,x,y,s){ctx.beginPath();const r=s/2;ctx.moveTo(x,y);ctx.translate(x,y);ctx.rotate(Math.PI/8);ctx.scale(1,1);ctx.moveTo(0,0);ctx.bezierCurveTo(-r,-r*0.8,-r*1.4,r/2,0,r*1.4);ctx.moveTo(0,0);ctx.bezierCurveTo(r,-r*0.8,r*1.4,r/2,0,r*1.4);ctx.fill();}
+    // Star
+    function drawStar(ctx,x,y,r){ctx.beginPath();for(let i=0;i<5;i++){ctx.lineTo(Math.cos((18+72*i)/180*Math.PI)*r, -Math.sin((18+72*i)/180*Math.PI)*r);ctx.lineTo(Math.cos((54+72*i)/180*Math.PI)*r/2, -Math.sin((54+72*i)/180*Math.PI)*r/2);}ctx.closePath();ctx.fill();}
+    // Petal
+    function drawPetal(ctx,x,y,s){ctx.beginPath();ctx.ellipse(0,0,s*0.6,s,0,0,Math.PI*2);ctx.fill();}
+
+    // Populate particles
+    function spawn(){
+      // random spawn along top
+      const x = rand(0,W);
+      const y = -20;
+      const t = Math.random();
+      const type = t<0.45? 'heart' : t<0.8? 'petal' : 'star';
+      const p = new Particle(x,y,rand(-0.25,0.25),rand(0.2,0.9),rand(6,18),type);
+      particles.push(p);
+      if(particles.length>220) particles.shift();
+    }
+
+    let last=0;
+    function loop(ts){
+      ctx.clearRect(0,0,W,H);
+      // soft gradient background glow
+      const g = ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'rgba(255,246,250,0.02)');g.addColorStop(1,'rgba(240,240,255,0.02)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+      if(Math.random()<0.85) spawn();
+      for(let i=particles.length-1;i>=0;i--){const p=particles[i];p.step();p.draw(ctx);if(p.y>H+40||p.age>p.life)particles.splice(i,1)}
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+
+    /* --------------------------- Gallery hover effect ------------------- */
+    // (handled by CSS transitions)
+
+    /* --------------------------- Letter reveal -------------------------- */
+    const letter = qs('#letter');
+    const io = new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('visible')})},{threshold:.18});
+    io.observe(letter);
+
+    /* --------------------------- Gallery Lightbox ---------------------- */
+    // Open images in a modal with caption
+    const lightbox = qs('#lightbox');
+    const lightboxImg = qs('#lightboxImg');
+    const lightboxMeta = qs('#lightboxMeta');
+    const closeLightbox = qs('#closeLightbox');
+    qs('#gallery').addEventListener('click', (e)=>{
+      const card = e.target.closest('.card');
+      if(!card) return;
+      const img = card.querySelector('img');
+      const caption = card.querySelector('.caption')?.textContent || '';
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt || caption;
+      lightboxMeta.textContent = caption;
+      lightbox.classList.add('show');
+    });
+    function closeLB(){ lightbox.classList.remove('show'); lightboxImg.src=''; }
+    closeLightbox.addEventListener('click', closeLB);
+    lightbox.addEventListener('click', (e)=>{ if(e.target===lightbox) closeLB(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') { closeLB(); surprise.classList.remove('show'); } });
+
+    /* --------------------------- Surprise modal ------------------------- */
+    const surprise = qs('#surprise');
+    const surpriseBtn = qs('#surpriseBtn');
+    const closeSurprise = qs('#closeSurprise');
+    surpriseBtn.addEventListener('click', ()=>{surprise.classList.add('show'); startConfetti();});
+    closeSurprise.addEventListener('click', ()=>{surprise.classList.remove('show'); stopConfetti();});
+
+    // Create typed final message when surprise opens
+    const finalMsgEl = qs('#finalMsg');
+    surprise.addEventListener('transitionend', (e)=>{
+      if(!surprise.classList.contains('show')) return;
+      // animate and type the final message
+      finalMsgEl.textContent='';
+      finalMsgEl.classList.remove('animate');
+      const msg = `Dear ${guestPlaceholder.textContent.replace(/\[|\]/g,'') || 'beautiful soul'}, you are cherished more than words can say. Happy Birthday 🌸`;
+      // small delay then type
+      setTimeout(()=>{ typeText(finalMsgEl, msg, 26); finalMsgEl.classList.add('animate'); }, 240);
+    });
+
+    /* --------------------------- Confetti (simple) --------------------- */
+    let confettiCanvas, confCtx, confInterval;
+    function startConfetti(){
+      if(confettiCanvas) return;
+      confettiCanvas = document.createElement('canvas');
+      confettiCanvas.style.position='fixed';confettiCanvas.style.inset='0';confettiCanvas.style.pointerEvents='none';confettiCanvas.style.zIndex=1100;
+      document.body.appendChild(confettiCanvas);
+      confCtx = confettiCanvas.getContext('2d');confettiCanvas.width=innerWidth;confettiCanvas.height=innerHeight;
+      const confs = [];
+      for(let i=0;i<120;i++){confs.push({x:Math.random()*innerWidth,y:Math.random()*-innerHeight,vy:Math.random()*3+1, vx:(Math.random()-0.5)*1.2, size:Math.random()*8+4, color:['#ff8fb1','#ffd6e8','#b99bff','#fff7f9'][Math.floor(Math.random()*4)]})}
+      confInterval = setInterval(()=>{
+        confCtx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+        for(let c of confs){c.x+=c.vx;c.y+=c.vy;c.vy+=0.02;confCtx.fillStyle=c.color;confCtx.fillRect(c.x,c.y,c.size, c.size*0.6);if(c.y>innerHeight+20){c.y=-20;c.x=Math.random()*innerWidth}}
+      },16);
+    }
+    function stopConfetti(){if(confettiCanvas){clearInterval(confInterval);confettiCanvas.remove();confettiCanvas=null}}
+
+    /* --------------------------- Ambient Music -------------------------- */
+    let audioCtx, master, osc1, osc2, gainNode, playing=false;
+    const playBtn = qs('#playPause');
+    function initAudio(){
+      audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+      master = audioCtx.createGain(); master.gain.value = 0.0; master.connect(audioCtx.destination);
+      // two detuned oscillators for a gentle pad
+      osc1 = audioCtx.createOscillator(); osc2 = audioCtx.createOscillator();
+      osc1.type='sine'; osc2.type='sine'; osc1.frequency.value=220; osc2.frequency.value=220*1.007;
+      gainNode = audioCtx.createGain(); gainNode.gain.value = 0.0;
+      // gentle LFO to breathe
+      const lfo = audioCtx.createOscillator(); const lfoGain = audioCtx.createGain(); lfo.frequency.value = 0.18; lfoGain.gain.value = 0.08; lfo.connect(lfoGain); lfoGain.connect(gainNode.gain);
+      osc1.connect(gainNode); osc2.connect(gainNode); gainNode.connect(master);
+      osc1.start(); osc2.start(); lfo.start();
+    }
+    function startMusic(){
+      if(!audioCtx) initAudio();
+      // ramp in
+      master.gain.cancelScheduledValues(audioCtx.currentTime); master.gain.linearRampToValueAtTime(0.5,audioCtx.currentTime+1.2);
+      playing=true; playBtn.textContent='Pause ♫';
+    }
+    function pauseMusic(){ if(!audioCtx) return; master.gain.cancelScheduledValues(audioCtx.currentTime); master.gain.linearRampToValueAtTime(0.0,audioCtx.currentTime+0.8); playing=false; playBtn.textContent='Play ♫'; }
+    playBtn.addEventListener('click', ()=>{
+      if(!audioCtx){initAudio();}
+      if(!playing){ // resume context on iOS / browsers
+        if(audioCtx.state==='suspended') audioCtx.resume(); startMusic();
+      } else pauseMusic();
+      // reflect state for assistive tech
+      playBtn.setAttribute('aria-pressed', String(playing));
+    });
+
+    /* --------------------------- Smooth scroll for internal nav ----- */
+    document.documentElement.style.scrollBehavior = 'smooth';
+
+    /* --------------------------- Accessibility: close welcome with Enter */
+    guestNameInput.addEventListener('keydown', e=>{if(e.key==='Enter'){openBtn.click()}});
+
+    // initial small type removed so name is shown immediately
+  </script>
+</body>
+</html>

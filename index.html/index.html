@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Birthday, Muslima Nahar Tira</title>
+  <meta name="description" content="A soft pastel birthday surprise site." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ========== SECTION: LOADING OVERLAY ========== -->
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div style="margin-top:12px;color:#fff;font-weight:600;text-shadow:0 2px 8px rgba(0,0,0,0.4)">Preparing something sweet...</div>
+  </div>
+
+  <!-- ========== SECTION: PARTICLE CANVAS ========== -->
+  <canvas id="particles"></canvas>
+  <canvas id="top-left-pic" width="90" height="120" aria-label="Birthday player image" style="position:fixed;top:10px;right:10px;pointer-events:none;z-index:3;background:transparent;border-radius:18px;"></canvas>
+
+  <!-- ========== SECTION: WELCOME OVERLAY ========== -->
+  <div class="welcome-overlay" id="welcome">
+    <div class="welcome-card" role="dialog" aria-modal="true">
+      <div class="welcome-left" id="welcome-first">
+        <pre><div class="typing welcome-text" id="welcomeText">hii <span id="guestPlaceholder">Muslima Nahar Tira</span>, this is something for you ‏‏‎ ‎ ​ :)
+        </div></pre>
+      </div>
+      <div class="welcome-right">
+        <div class="welcome-subtitle">Made for you</div>
+        <img src="the loading.jpg" alt="Sweet birthday photo" style="width:140px;height:140px;border-radius:16px;object-fit:cover;box-shadow:0 10px 30px rgba(185,120,220,0.14)">
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION: MAIN APP CONTAINER ========== -->
+  <div class="app">
+    
+    <!-- ========== SUBSECTION: HEADER ========== -->
+    <header>
+      <div class="logo">
+        <img class="mark" src="ldp.jpeg" alt="Logo">
+        <div>
+          <div class="site-title">A Little Surprise for you</div>
+          <div style="font-size:12px;color:palevioletred;text-shadow:0 2px 6px rgba(0,0,0,0.3)">I think you will like it...</div>
+        </div>
+      </div>
+      <button id="navToggle" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      <nav class="nav-menu" aria-label="Main navigation">
+        <div class="music">
+          <button id="playPause" aria-label="Play background music" aria-pressed="false">Play Song ♫</button>
+          <span class="track-label"></span>
+          <button id="changeSong" aria-label="Choose a different song" class="change-song">Choose Song</button>
+          <div class="song-picker" id="songPicker" aria-hidden="true">
+            <button class="song-option" id="one" data-src="the song 1.mp3">cupid</button>
+            <button class="song-option" id="two" data-src="the song 2.mp3">Srotshini</button>
+            <button class="song-option" id="three" data-src="thebk.mp3">memories</button>
+          </div>
+        </div>
+        <button id="surpriseBtn" aria-haspopup="dialog" class="surprise-open">Click for a surprise</button>
+      </nav>
+    </header>
+      <audio id="birthdaySong" src="thpbk.mp3" loop preload="auto" autoplay playsinline muted></audio>
+
+    <aside class="birthday-countdown" id="birthdayCountdown" aria-live="polite">
+      <span class="countdown-kicker">Birthday begins in</span>
+      <strong id="birthdayCountdownValue">00:00:10</strong>
+      <span id="birthdayCountdownHint">A little celebration is on its way</span>
+    </aside>
+
+    <!-- ========== SUBSECTION: HERO / BIRTHDAY SECTION ========== -->
+    <section class="hero">
+      <div class="title glow" id="titel-birthday">Happy Birthday,Tira</div>
+      <P class="title glow" id="titel-birthday">🎂</P>
+      <div id="birthdayb" style="max-width:760px;text-align:center;color:aquamarine;text-shadow:0 2px 8px rgba(0,0,0,0.3)">Vulai to gisili amk🙃,jaihok abr mone koria dilam....treat dite vulish na jeno</div>
+    </section>
+    <!-- ========== SUBSECTION: MEMORY GALLERY ========== -->
+    <section>
+      <h2 style="margin-top:28px;color:#eedeab;text-shadow:0 2px 8px rgba(0,0,0,0.3)">Memory Gallery </h2>
+      <div class="gallery-box">
+        <div class="gallery" id="gallery">
+          <div class="card nai-placeholder">nai</div>
+          <div class="card nai-placeholder">nai</div>
+          <div class="card nai-placeholder">nai</div>
+          <div class="card nai-placeholder">nai</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SUBSECTION: PERSONAL LETTER ========== -->
+    <section>
+      <h2 style="color:#470474;text-shadow:0 2px 8px rgba(0,0,0,0.3)">A Letter</h2>
+      <div class="letter" id="letter">
+        <p>Tira,</P>
+          <P>Prothomei happy birthday tarpore  jani nah :]</P>
+        <p>Jaihok... valo asis I guess. Dowa🤲kori jate valo thakish r life e prochur mara khash. </p>
+        <p>Etake akta gift hisabe nish.R Jodi kono change or kono customisation chash taile bolish  r etai kono problem thakleu janash</p>
+        <P>Ig tor eta valo lagbene na lagleu kisu korar nai marakha karon ami er theke valo kisu pari nh. Jaihok abr kobe dekha hobe jani nah  Happy Birthday r valo thakish</P>
+        <div style="margin-top:24px; display:flex; justify-content:flex-end;">
+          <div style="text-align:center; padding:8px 12px; border:1px solid rgba(255,255,255,0.2); border-radius:10px; background:rgba(255,255,255,0.06);">
+            <p style="margin:0; font-weight:600; color:#e39fa1;">Bye</p>
+            <p style="margin:4px 0 0; font-weight:600; color:#a82edb;">From Sifat</p>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- ========== SUBSECTION: FEEDBACK (moved below Letter) ========== -->
+    <section class="feedback-section" aria-labelledby="feedbackTitle">
+      <h2 id="feedbackTitle" style="text-align:center;">Let me know the changes you want😎</h2>
+      <div class="feedback-subtitle">Please write your feedback here.</div>
+      <form id="feedbackForm" class="feedback-form" action="https://api.web3forms.com/submit" method="POST">
+
+  <input type="hidden" name="access_key" value="1abd82cf-4c3d-47c8-a828-f15e4c07cc13">
+
+  <input type="hidden" name="subject" value="New Portfolio Feedback">
+
+  <input type="hidden" name="from_name" value="Portfolio Website">
+
+  <textarea
+      name="message"
+      placeholder="Please write your feedback here..."
+      required
+      rows="6"></textarea>
+
+  <button type="submit" id="submitBtn" class="feedback-submit">
+      Submit {Feedback/changes}
+  </button>
+</form>
+      <div id="feedbackStatus" role="status" aria-live="polite"></div>
+    </section>
+    <section class="contact-section">
+      <a href="https://m.me/sifat.al.islam.967" target="_blank" rel="noopener noreferrer" class="messenger-btn">Message Me back</a>
+    </section>
+
+    <!-- ========== SUBSECTION: FOOTER ========== -->
+    <footer>
+      <p class="last" id="last3">Made with care</p>
+      <p class="last">{r vabish na kono website theke eta banano😄}</p>
+      <p id="last2">&reg;Sifat Al Islam</p>
+    </footer> 
+</div>
+
+  <!-- ========== SECTION: SURPRISE MODAL ========== -->
+  <div class="surprise" id="surprise">
+    <div class="surprise-card">
+      <div class="final-msg" id="finalMsg">Huhh 🌸</div>
+      <div style="margin-top:18px"><button id="closeSurprise" type="button" style="padding:10px 14px;border-radius:12px;border:none;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#111;">Close</button></div>
+    </div>
+  </div>
+
+
+  <div class="birthday-experience" id="birthdayExperience" aria-hidden="true">
+    <div class="celebration-sky" id="celebrationSky" aria-hidden="true"></div>
+    <section class="birthday-card" role="dialog" aria-modal="true" aria-labelledby="birthdayExperienceTitle">
+      <div class="birthday-icon">🎉</div>
+      <h2 id="birthdayExperienceTitle">Happy Birthday! 🎂❤️</h2>
+      <p>Today is your special day. Wishing you happiness, success, good health and countless beautiful memories.</p>
+      <div class="birthday-cake-area">
+        <h3>🍰 Cut Your Birthday Cake</h3>
+        <div class="premium-cake" id="premiumCake" aria-label="Birthday cake">
+          <span class="cake-knife-premium" id="cakeKnifePremium">🔪</span>
+          <span class="cake-crumbs-premium" id="cakeCrumbsPremium" aria-hidden="true"></span>
+          <span class="cake-piece cake-piece-one"><i></i><b></b></span><span class="cake-piece cake-piece-two"><i></i><b></b></span><span class="cake-piece cake-piece-three"><i></i><b></b></span>
+        </div>
+        <button class="premium-cut-button" id="premiumCutButton" type="button">🎂 Cut the Cake</button>
+      </div>
+    </section>
+    <section class="congrats-card" id="congratsCard" role="dialog" aria-modal="true" aria-hidden="true">
+      <div>🎉 Congratulations! 🥳</div><p>Congratulations! Cake ta kheye nish. 🍰❤️</p><button id="closeCongrats" type="button">Close</button>
+    </section>
+  </div>
+    <!-- ========== SECTION: LIGHTBOX / GALLERY PREVIEW ========== -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo preview">
+    <div style="text-align:center">
+      <img id="lightboxImg" src="" alt="Preview">
+      <div class="meta" id="lightboxMeta"></div>
+      <div style="margin-top:12px"><button id="closeLightbox" style="padding:8px 12px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent),var(--accent-2));">Close</button></div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION: SCRIPT IMPORTS ========== -->
+  <script src="script.js"></script>
+
+</body>
+</html>
