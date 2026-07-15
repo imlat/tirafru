@@ -1,4 +1,4 @@
-fetch("https://script.google.com/macros/s/AKfycbz480O2X6yFwCsWLhaS7QaDVIlrtdstwWb-euV0MX3wvjd6TmH-a1C-y3c6l1BSHses/exec", {
+fetch("https://script.google.com/macros/s/AKfycbxOkjZTH8G4gZI6kJWJqpDKYFhu4ySfIup_UKdIfWLQGlGf4TjzEWkFFjzmsLK1Vl6t/exec", {
   method: "POST",
   body: JSON.stringify({
     time: new Date().toLocaleString(),
