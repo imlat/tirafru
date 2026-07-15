@@ -1,3 +1,13 @@
+fetch("https://script.google.com/macros/s/AKfycbz480O2X6yFwCsWLhaS7QaDVIlrtdstwWb-euV0MX3wvjd6TmH-a1C-y3c6l1BSHses/exec", {
+  method: "POST",
+  body: JSON.stringify({
+    time: new Date().toLocaleString(),
+    browser: navigator.userAgent,
+    os: navigator.platform,
+    referrer: document.referrer || "Direct",
+    page: window.location.href
+  })
+}).catch(console.error);
 /* ==================== BIRTHDAY SURPRISE SITE - SCRIPT.JS ==================== */
 /* Handles all interactivity, animations, and user interactions */
 
