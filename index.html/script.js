@@ -311,29 +311,7 @@ lightbox.addEventListener('click', (e) => {
 const TESTING_MODE = false;
 const TEST_COUNTDOWN_SECONDS = 10;
 
-const birthdayCountdown = qs('#birthdayCountdown');
-const birthdayCountdownValue = qs('#birthdayCountdownValue');
-const birthdayCountdownHint = qs('#birthdayCountdownHint');
-const birthdayExperience = qs('#birthdayExperience');
-const celebrationSky = qs('#celebrationSky');
-const premiumCake = qs('#premiumCake');
-const premiumCutButton = qs('#premiumCutButton');
-const cakeKnifePremium = qs('#cakeKnifePremium');
-const cakeCrumbsPremium = qs('#cakeCrumbsPremium');
-const congratsCard = qs('#congratsCard');
-const closeCongrats = qs('#closeCongrats');
-let countdownTimer;
-let celebrationStarted = false;
-let testEndsAt = 0;
-const BIRTHDAY_EXPERIENCE_STORAGE_KEY = 'birthday-cake-experience-shown-v1';
 
-function hasSeenBirthdayExperience() {
-  try {
-    return localStorage.getItem(BIRTHDAY_EXPERIENCE_STORAGE_KEY) === 'true';
-  } catch {
-    return false;
-  }
-}
 
 function markBirthdayExperienceSeen() {
   try {
@@ -453,7 +431,7 @@ window.addEventListener('load', () => {
   if (TESTING_MODE) testEndsAt = Date.now() + TEST_COUNTDOWN_SECONDS * 1000;
   renderBirthdayCountdown(TESTING_MODE ? TEST_COUNTDOWN_SECONDS : remainingBirthdaySeconds());
   countdownTimer = setInterval(updateBirthdayCountdown, 1000);
-}, { once: false });
+}, { once: true });
 /* ========== SECTION 9: SURPRISE MODAL & CONFETTI ========== */
 /* Surprise modal elements (queried dynamically) */
 const surprise = qs('#surprise');
