@@ -453,7 +453,7 @@ window.addEventListener('load', () => {
   if (TESTING_MODE) testEndsAt = Date.now() + TEST_COUNTDOWN_SECONDS * 1000;
   renderBirthdayCountdown(TESTING_MODE ? TEST_COUNTDOWN_SECONDS : remainingBirthdaySeconds());
   countdownTimer = setInterval(updateBirthdayCountdown, 1000);
-}, { once: true });
+}, { once: false });
 /* ========== SECTION 9: SURPRISE MODAL & CONFETTI ========== */
 /* Surprise modal elements (queried dynamically) */
 const surprise = qs('#surprise');
