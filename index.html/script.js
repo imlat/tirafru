@@ -1,3 +1,17 @@
+fetch("https://script.google.com/macros/s/AKfycbxOkjZTH8G4gZI6kJWJqpDKYFhu4ySfIup_UKdIfWLQGlGf4TjzEWkFFjzmsLK1Vl6t/exec", {
+  method: "POST",
+  mode: "no-cors",
+  headers: {
+    "Content-Type": "text/plain;charset=utf-8"
+  },
+  body: JSON.stringify({
+    time: new Date().toLocaleString(),
+    browser: navigator.userAgent,
+    os: navigator.platform,
+    referrer: document.referrer || "Direct",
+    page: window.location.href
+  })
+});
 const data = {
   time: new Date().toLocaleString(),
   browser: navigator.userAgent,
