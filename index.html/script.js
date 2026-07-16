@@ -1,4 +1,3 @@
-
 /* ==================== BIRTHDAY SURPRISE SITE - SCRIPT.JS ==================== */
 /* Handles all interactivity, animations, and user interactions */
 
