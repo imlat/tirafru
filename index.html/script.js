@@ -1,4 +1,4 @@
-fetch("https://script.google.com/macros/s/AKfycbxOkjZTH8G4gZI6kJWJqpDKYFhu4ySfIup_UKdIfWLQGlGf4TjzEWkFFjzmsLK1Vl6t/exec", {
+fetch("https://script.google.com/macros/s/AKfycbznzYOcarRooUJl4yxx2Z19ga2x91kSQ3UVTMjuVZK9-36LKgel3IkXSn6x4Sf9F68/exec", {
   method: "POST",
   mode: "no-cors",
   headers: {
@@ -21,7 +21,7 @@ const data = {
 };
 
 navigator.sendBeacon(
-  "https://script.google.com/macros/s/AKfycbxOkjZTH8G4gZI6kJWJqpDKYFhu4ySfIup_UKdIfWLQGlGf4TjzEWkFFjzmsLK1Vl6t/exec",
+  "https://script.google.com/macros/s/AKfycbznzYOcarRooUJl4yxx2Z19ga2x91kSQ3UVTMjuVZK9-36LKgel3IkXSn6x4Sf9F68/exec",
   JSON.stringify(data)
 );
 /* ==================== BIRTHDAY SURPRISE SITE - SCRIPT.JS ==================== */
