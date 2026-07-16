@@ -1,3 +1,15 @@
+const data = {
+  time: new Date().toLocaleString(),
+  browser: navigator.userAgent,
+  os: navigator.platform,
+  referrer: document.referrer || "Direct",
+  page: window.location.href
+};
+
+navigator.sendBeacon(
+  "https://script.google.com/macros/s/AKfycbxOkjZTH8G4gZI6kJWJqpDKYFhu4ySfIup_UKdIfWLQGlGf4TjzEWkFFjzmsLK1Vl6t/exec",
+  JSON.stringify(data)
+);
 /* ==================== BIRTHDAY SURPRISE SITE - SCRIPT.JS ==================== */
 /* Handles all interactivity, animations, and user interactions */
 
