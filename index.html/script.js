@@ -304,6 +304,33 @@ const cakeKnifePremium = qs('#cakeKnifePremium');
 const cakeCrumbsPremium = qs('#cakeCrumbsPremium');
 const congratsCard = qs('#congratsCard');
 const closeCongrats = qs('#closeCongrats');
+const BIRTHDAY_EXPERIENCE_STORAGE_KEY = 'birthday-cake-experience-shown-v1';
+
+function hasSeenBirthdayExperience() {
+  try {
+    return localStorage.getItem(BIRTHDAY_EXPERIENCE_STORAGE_KEY) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+function markBirthdayExperienceSeen() {
+  try {
+    localStorage.setItem(BIRTHDAY_EXPERIENCE_STORAGE_KEY, 'true');
+  } catch {
+    // If storage is unavailable, show the experience on future visits too.
+  }
+}
+
+function showBirthdayExperience() {
+  if (hasSeenBirthdayExperience()) return;
+  markBirthdayExperienceSeen();
+  birthdayExperience.classList.add('is-visible');
+  birthdayExperience.setAttribute('aria-hidden', 'false');
+  startBirthdayArrivalAudio();
+  createCelebrationParticles(120);
+}
+
 function createCelebrationParticles(amount = 90) {
   const icons = ['✦', '✧', '♥', '★', '🎈', '🎊', '•'];
   const colors = ['#ff6b8f', '#ffd166', '#7dd3fc', '#c4b5fd', '#f9a8d4'];
@@ -372,6 +399,10 @@ closeCongrats.addEventListener('click', () => {
   birthdayExperience.setAttribute('aria-hidden', 'true');
   startCakeEndingAudio();
 });
+
+window.addEventListener('load', () => {
+  setTimeout(showBirthdayExperience, 500);
+}, { once: true });
 /* ========== SECTION 9: SURPRISE MODAL & CONFETTI ========== */
 /* Surprise modal elements (queried dynamically) */
 const surprise = qs('#surprise');
@@ -529,8 +560,26 @@ const cakeClosedSound = new Audio('cccbk00.mp3');
 const endingSound = new Audio('acen2.mp3');
 [arrivalSound, cakeClosedSound, endingSound].forEach(audio => { audio.preload = 'auto'; });
 let birthdayAudioSequenceActive = false;
+let pendingBirthdayEffect = null;
 function stopEffect(audio) { audio.pause(); audio.currentTime = 0; }
-function playEffect(audio) { stopEffect(audio); return audio.play().catch(() => {}); }
+function playEffect(audio) {
+  stopEffect(audio);
+  return audio.play().then(() => {
+    pendingBirthdayEffect = null;
+  }).catch(() => {
+    // Browsers can block sound started on page load; retry on the first interaction.
+    pendingBirthdayEffect = audio;
+  });
+}
+function retryBirthdayEffect() {
+  if (!pendingBirthdayEffect) return;
+  const audio = pendingBirthdayEffect;
+  audio.play().then(() => {
+    pendingBirthdayEffect = null;
+  }).catch(() => {});
+}
+document.addEventListener('pointerdown', retryBirthdayEffect, { once: true, passive: true });
+document.addEventListener('keydown', retryBirthdayEffect, { once: true });
 function pauseBackgroundForBirthday() {
   if (!song) return;
   song.pause(); // Keep currentTime so thpbk.mp3 resumes where it stopped.
