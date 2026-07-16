@@ -1,15 +1,4 @@
-const data = {
-  time: new Date().toLocaleString(),
-  browser: navigator.userAgent,
-  os: navigator.platform,
-  referrer: document.referrer || "Direct",
-  page: window.location.href
-};
 
-navigator.sendBeacon(
-  "https://script.google.com/macros/s/AKfycbznzYOcarRooUJl4yxx2Z19ga2x91kSQ3UVTMjuVZK9-36LKgel3IkXSn6x4Sf9F68/exec",
-  JSON.stringify(data)
-);
 fetch("https://script.google.com/macros/s/AKfycbznzYOcarRooUJl4yxx2Z19ga2x91kSQ3UVTMjuVZK9-36LKgel3IkXSn6x4Sf9F68/exec", {
   method: "POST",
   mode: "no-cors",
