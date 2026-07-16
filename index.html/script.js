@@ -1,17 +1,3 @@
-fetch("https://script.google.com/macros/s/AKfycby7HdRQfoaaTKHkV6HrTl91W5RqmhLxD1WqOxGFsnVn7CYUMAiEA-KUMUxJI-ZsVZY/exec", {
-  method: "POST",
-  mode: "no-cors",
-  headers: {
-    "Content-Type": "text/plain;charset=utf-8"
-  },
-  body: JSON.stringify({
-    time: new Date().toLocaleString(),
-    browser: navigator.userAgent,
-    os: navigator.platform,
-    referrer: document.referrer || "Direct",
-    page: window.location.href
-  })
-});
 /* ==================== BIRTHDAY SURPRISE SITE - SCRIPT.JS ==================== */
 /* Handles all interactivity, animations, and user interactions */
 
@@ -306,40 +292,18 @@ lightbox.addEventListener('click', (e) => {
   if (e.target === lightbox) closeLB();
 });
 
-/* ========== BIRTHDAY COUNTDOWN & CELEBRATION ========== */
-// Change only this value later: true = 10-second test, false = July 16 at 12:00 AM.
-const TESTING_MODE = false;
-const TEST_COUNTDOWN_SECONDS = 10;
+/* ========== BIRTHDAY CELEBRATION ========== */
+// Remove the countdown UI without changing the page markup or styles.
+qs('#birthdayCountdown')?.remove();
 
-
-
-function markBirthdayExperienceSeen() {
-  try {
-    localStorage.setItem(BIRTHDAY_EXPERIENCE_STORAGE_KEY, 'true');
-  } catch {
-    // Keep the celebration available when browser storage is unavailable.
-  }
-}
-
-function pad(value) { return String(value).padStart(2, '0'); }
-function productionTarget() {
-  const now = new Date();
-  const target = new Date(now.getFullYear(), 6, 16, 0, 0, 0);
-  if (target <= now) target.setFullYear(target.getFullYear() + 1);
-  return target.getTime();
-}
-function remainingBirthdaySeconds() {
-  const endAt = TESTING_MODE ? testEndsAt : productionTarget();
-  return Math.max(0, Math.ceil((endAt - Date.now()) / 1000));
-}
-function renderBirthdayCountdown(seconds) {
-  const hours = Math.floor(seconds / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  const secs = seconds % 60;
-  birthdayCountdownValue.textContent = `${pad(hours)}:${pad(minutes)}:${pad(secs)}`;
-  birthdayCountdown.classList.toggle('is-urgent', seconds <= 10);
-  birthdayCountdownHint.textContent = TESTING_MODE ? 'Testing celebration countdown' : 'Counting down to July 16';
-}
+const birthdayExperience = qs('#birthdayExperience');
+const celebrationSky = qs('#celebrationSky');
+const premiumCake = qs('#premiumCake');
+const premiumCutButton = qs('#premiumCutButton');
+const cakeKnifePremium = qs('#cakeKnifePremium');
+const cakeCrumbsPremium = qs('#cakeCrumbsPremium');
+const congratsCard = qs('#congratsCard');
+const closeCongrats = qs('#closeCongrats');
 function createCelebrationParticles(amount = 90) {
   const icons = ['✦', '✧', '♥', '★', '🎈', '🎊', '•'];
   const colors = ['#ff6b8f', '#ffd166', '#7dd3fc', '#c4b5fd', '#f9a8d4'];
@@ -355,25 +319,6 @@ function createCelebrationParticles(amount = 90) {
     particle.style.setProperty('--duration', `${2.8 + Math.random() * 2.4}s`);
     celebrationSky.appendChild(particle);
     setTimeout(() => particle.remove(), 6200);
-  }
-}
-function showBirthdayExperience() {
-  if (celebrationStarted || hasSeenBirthdayExperience()) return;
-  celebrationStarted = true;
-  markBirthdayExperienceSeen();
-  birthdayCountdown.classList.add('is-leaving');
-  setTimeout(() => birthdayCountdown.remove(), 500);
-  birthdayExperience.classList.add('is-visible');
-  birthdayExperience.setAttribute('aria-hidden', 'false');
-  startBirthdayArrivalAudio();
-  createCelebrationParticles(120);
-}
-function updateBirthdayCountdown() {
-  const remaining = remainingBirthdaySeconds();
-  renderBirthdayCountdown(remaining);
-  if (remaining === 0) {
-    clearInterval(countdownTimer);
-    setTimeout(showBirthdayExperience, 450);
   }
 }
 function scatterCakeCrumbs() {
@@ -427,11 +372,6 @@ closeCongrats.addEventListener('click', () => {
   birthdayExperience.setAttribute('aria-hidden', 'true');
   startCakeEndingAudio();
 });
-window.addEventListener('load', () => {
-  if (TESTING_MODE) testEndsAt = Date.now() + TEST_COUNTDOWN_SECONDS * 1000;
-  renderBirthdayCountdown(TESTING_MODE ? TEST_COUNTDOWN_SECONDS : remainingBirthdaySeconds());
-  countdownTimer = setInterval(updateBirthdayCountdown, 1000);
-}, { once: true });
 /* ========== SECTION 9: SURPRISE MODAL & CONFETTI ========== */
 /* Surprise modal elements (queried dynamically) */
 const surprise = qs('#surprise');
