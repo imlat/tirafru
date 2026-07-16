@@ -591,7 +591,7 @@ function resumeBackgroundAfterBirthday() {
   song.play().then(() => {
     playing = true;
     if (playBtn) { playBtn.textContent = 'Pause ♫'; playBtn.setAttribute('aria-pressed', 'true'); }
-  }).catch(() => showAudioPrompt());
+  }).catch(() => { playing = false; });
 }
 function startBirthdayArrivalAudio() {
   birthdayAudioSequenceActive = true;
@@ -674,6 +674,7 @@ function initAudio() {
  * Start music playback
  */
 function startMusic() {
+  if (birthdayAudioSequenceActive) return;
   if (song) {
     song.play().catch(() => {});
     playing = true;
@@ -712,6 +713,7 @@ function pauseMusic() {
  * Play/Pause button handler
  */
 playBtn.addEventListener('click', () => {
+  if (birthdayAudioSequenceActive) return;
   // First tap: show song picker if no song chosen yet
   if (!songChosen) {
     if (songPicker) {
@@ -752,6 +754,7 @@ playBtn.addEventListener('click', () => {
 if (songPicker) {
   songPicker.querySelectorAll('.song-option').forEach(btn => {
     btn.addEventListener('click', (e) => {
+      if (birthdayAudioSequenceActive) return;
       const src = btn.dataset.src;
       const label = btn.textContent || 'Custom Track';
       if (song && src) {
@@ -791,7 +794,7 @@ if (changeSongBtn && songPicker) {
  * register a one-time user-gesture listener (click/keydown/touch) to start playback.
  */
 function attemptAutoplay() {
-  if (!song) return;
+  if (!song || birthdayAudioSequenceActive) return;
   // Try muted autoplay first (many browsers allow muted autoplay)
   try {
     song.autoplay = true;
@@ -826,6 +829,7 @@ function attemptAutoplay() {
 }
 
 function showAudioPrompt() {
+  return;
   let prompt = document.querySelector('.audio-prompt');
   if (!prompt) {
     prompt = document.createElement('div');
